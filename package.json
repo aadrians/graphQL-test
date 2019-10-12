@@ -1,0 +1,17 @@
+{
+  "name": "graphql-test",
+  "version": "1.0.0",
+  "description": "GraphQL test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -e js,json,graphql"
+  },
+  "author": "Arya",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.9.5",
+    "graphql": "^14.5.8",
+    "nodemon": "^1.19.3"
+  }
+}
