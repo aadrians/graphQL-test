@@ -1,4 +1,7 @@
-const { ApolloServer } = require('apollo-server')
+const { ApolloServer } = require('apollo-server-express')
+const express = require('express')
+const expressPlayground = require('graphql-playground-middleware-express').default
+// const { readFileSync } = require('fs')
 const { GraphQLScalarType } = require('graphql')
 
 const typeDefs = `
@@ -47,8 +50,9 @@ const typeDefs = `
 
 `
 
-// resolvers
+// variables
 var _id = 0;
+var app = express()
 var users = [
   { "githubLogin": "mHattrup", "name": "Mike Hattrup" },
   { "githubLogin": "gPlake", "name": "Glen Plake" },
@@ -147,6 +151,12 @@ const server = new ApolloServer({
   resolvers
 })
 
-server
-  .listen()
-  .then(({url}) => console.log(`GraphQL Service running on ${url}`));
+server.applyMiddleware({ app })
+
+// app server endpoint configuration
+app.get('/', (req, res) => res.end('Welcome to the Photoshare API'))
+app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
+
+app.listen({ port: 4000 }, () =>
+  console.log(`GraphQL Server running at http://localhost:4000${server.graphqlPath}`)
+)
