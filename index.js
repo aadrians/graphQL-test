@@ -1,9 +1,11 @@
 const { ApolloServer } = require('apollo-server-express')
 const express = require('express')
 const expressPlayground = require('graphql-playground-middleware-express').default
-// const { readFileSync } = require('fs')
 const { GraphQLScalarType } = require('graphql')
 
+/**
+ * TYPE DEFINITION
+ */
 const typeDefs = `
   enum PhotoCategory {
     SELFIE
@@ -50,7 +52,9 @@ const typeDefs = `
 
 `
 
-// variables
+/**
+ * VARIABLES
+ */
 var _id = 0;
 var app = express()
 var users = [
@@ -92,6 +96,9 @@ var tags = [
   { "photoID": "2", "userID": "gPlake" }
 ]
 
+/**
+ * RESOLVERS
+ */
 const resolvers = {
   Query: {
     totalPhotos: () => photos.length,
@@ -146,6 +153,9 @@ const resolvers = {
   })
 }
 
+/**
+ * APPLICATION SERVER
+ */
 const server = new ApolloServer({
   typeDefs,
   resolvers
